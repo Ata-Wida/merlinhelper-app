@@ -1,0 +1,12 @@
+[
+  {
+    "name": "adh-server",
+    "url": "http://localhost:3000",
+    "dbName": "sampleDB"
+  },
+  {
+    "name": "prod-server",
+    "url": "http://prodserver:3000",
+    "dbName": "prodDB"
+  }
+]
