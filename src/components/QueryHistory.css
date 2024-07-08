@@ -1,0 +1,34 @@
+.query-history-item {
+  background-color: #f8f9fa;
+  margin-bottom: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+  max-height: 4.8em;
+  overflow: hidden;
+  position: relative;
+}
+
+.query-history-item .content {
+  max-height: 6em; 
+  overflow: auto;
+  padding-right: 10px; 
+}
+
+.query-history-item.dragging {
+  background-color: #e9ecef;
+}
+
+.query-history-item:hover {
+  background-color: #fbfd90;
+}
+
+.query-history-item .content::-webkit-scrollbar {
+  width: 4.9px;
+}
+
+.query-history-item .content::-webkit-scrollbar-thumb {
+  background-color: #adb5bd;
+  border-radius: 5px;
+}

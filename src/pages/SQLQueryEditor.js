@@ -1,36 +1,57 @@
-// src/pages/SQLQueryEditor.js
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import SQLEditor from '../components/SQLEditor';
 
-function SQLQueryEditor({ onExecuteQuery }) {
+const SQLQueryEditor = ({ onExecuteQuery, initialQuery, initialDescription, queryInputRef }) => {
   const [query, setQuery] = useState('');
+  const [description, setDescription] = useState('');
 
-  function handleChange(e) {
-    setQuery(e.target.value);
-  }
+  useEffect(() => {
+    if (initialQuery) {
+      setQuery(initialQuery);
+    }
+    if (initialDescription) {
+      setDescription(initialDescription);
+    }
+  }, [initialQuery, initialDescription]);
 
-  function handleExecute(e) {
-    e.preventDefault();
-    onExecuteQuery(query);
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onExecuteQuery(query, description);
+  };
+
+  const clearQueryAndDescription = () => {
+    setQuery('');
+    setDescription('');
+    if (queryInputRef && queryInputRef.current) {
+      queryInputRef.current.focus();
+    }
+  };
 
   return (
-    <Form onSubmit={handleExecute}>
-      <Form.Group controlId="sqlQuery">
-        <Form.Label>SQL Query</Form.Label>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="query">
+        <Form.Label style={{ fontSize: 'small' }}>
+          <Button variant="link" onClick={clearQueryAndDescription} style={{ padding: 0, fontSize: 'small' }}>
+            SQL Query
+          </Button>
+        </Form.Label>
+        <SQLEditor value={query} onChange={setQuery} />
+      </Form.Group>
+      <Form.Group controlId="description">
+        <Form.Label style={{ fontSize: 'small' }}>Description</Form.Label>
         <Form.Control
-          as="textarea"
-          rows={5}
-          placeholder="Write your SQL query here..."
-          value={query}
-          onChange={handleChange}
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          style={{ fontSize: 'small' }}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" className="mt-2">
+      <Button variant="primary" type="submit" size="sm">
         Execute Query
       </Button>
     </Form>
   );
-}
+};
 
 export default SQLQueryEditor;
