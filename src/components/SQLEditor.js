@@ -9,8 +9,8 @@ const SQLEditor = ({ value, onChange }) => {
       value={value}
       height="300px"
       extensions={[sql()]}
-      onChange={(editor, change) => {
-        onChange(editor.getValue());
+      onChange={(value) => {
+        onChange(value);
       }}
     />
   );
